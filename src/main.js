@@ -62,7 +62,7 @@ import './assets/icon/iconfont.css';
 // ---------------------------------------------------------------------------------
 
 // 获取当前用户的所有可用功能菜单
-httpUtil.post('rbac/permission/getPermissionTree', {},
+httpUtil.post('permission/getPermissionTree', {},
   data => {
     // 成功获取菜单，根据菜单进行应用的初始化
     var router = initApp(data);

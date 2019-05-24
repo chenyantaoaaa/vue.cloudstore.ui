@@ -7,12 +7,12 @@
     <el-form-item prop="checkPass">
       <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
-    <el-form-item prop="accountId">
+    <!-- <el-form-item prop="accountId">
       <el-select  v-model="ruleForm2.accountId" value-key="id" filterable style="width:100%;">
       <el-option v-for="item in whsOrgList" :key="item.id" :label="item.name" :value="item">
       </el-option>
       </el-select>
-    </el-form-item>
+    </el-form-item> -->
     <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
@@ -49,7 +49,7 @@
       };
     },
     created(){
-      this.getWhsOrgList();
+      // this.getWhsOrgList();
     },
     methods: {
       handleReset2() {
@@ -59,19 +59,13 @@
         var _this = this;
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {
-            //_this.$router.replace('/table');
-            if(!_this.ruleForm2.accountId){
-              _this.$message.error('请先选择一个仓库。');
-              return;
-            }
-
             _this.logining = true;
             //NProgress.start();
             var loginParams = { 
               username: _this.ruleForm2.account, 
               password: _this.ruleForm2.checkPass,
-              accountId:_this.ruleForm2.accountId.id,
-              account:_this.ruleForm2.accountId
+              // accountId:_this.ruleForm2.accountId.id,
+              // account:_this.ruleForm2.accountId
               // accountId:_this.ruleForm2.accountId 
              };
             userLogin(loginParams,data=>{
@@ -98,12 +92,7 @@
             return false;
           }
         });
-      },
-      getWhsOrgList: function(){
-        httpUtil.post("whsOrg/getAllWhsOrg", null, data => {
-            this.whsOrgList = data;
-        });
-      } 
+      }
     }
   }
 
