@@ -35,9 +35,9 @@ function loadColDic(user,callback){
 export const userLogin = (params,callback) => {
     return httpUtil.post("user/login", params, data => {
         //组装仓库信息
-        data.accountId = params.account.id;
-        data.accountName = params.account.name;
-        data.accountInfo = params.account;
+        // data.accountId = params.account.id;
+        // data.accountName = params.account.name;
+        // data.accountInfo = params.account;
         //data.stock = params.account;
         cacheUtil.setUser(data);
         try{
