@@ -20,13 +20,11 @@
       <pm_tool_bar>
         <pm_toolButton
           btnName="新增"
-          btnPermission="btn_add"
           btnIcon="el-icon-circle-plus-outline"
           :btnClickFunc="addWin"
         ></pm_toolButton>
         <pm_toolButton
           btnName="作废"
-          btnPermission="btn_del"
           btnIcon="el-icon-edit"
           :btnClickFunc="btn_func"
         ></pm_toolButton>
@@ -36,8 +34,16 @@
         <pm_table ref="pmTable" tableKey="MeterialManage-pmTable" :dataSource="dataSource" :config="config">
           <!-- <vue_column :prop="props.field" slot-scope="props" label="测试" allowEdit='true' width="200" placeholder="请输入捆包号"
           :callback="requestTransactionLogs" renderType="input"></vue_column>-->
-          <pm_column prop="name" label="材质名称" width="300"></pm_column>
-          <pm_column prop="mnemonicCode" label="助记码" width="200"></pm_column>
+          <pm_column prop="wmsInCode" label="入库单号" width="300"></pm_column>
+          <pm_column prop="portraitPower" label="纵向强力" width="200"></pm_column>
+          <pm_column prop="transversePower" label="横向强力" width="200"></pm_column>
+          <pm_column prop="ratio" label="纵横比" width="200"></pm_column>
+          <pm_column prop="portraitDrafting" label="纵向牵伸" width="200"></pm_column>
+          <pm_column prop="transverseDrafting" label="横向牵伸" width="200"></pm_column>
+          <pm_column prop="singleSilkThin" label="单丝细度" width="200"></pm_column>
+          <pm_column prop="thickness" label="厚度" width="200"></pm_column>
+          <pm_column prop="even" label="均匀度" width="200"></pm_column>
+          <pm_column prop="soft" label="柔软度" width="200"></pm_column>
           <pm_column prop="remark" label="备注"></pm_column>
         </pm_table>
         <pm_pagination ref="pager" :totalSize="totalSize" :queryData="getList"></pm_pagination>
@@ -61,7 +67,7 @@ import commonUtil from "@/common/utils/CommonUtils";
 import pm_pagination from "@/components/common/table/pm_pagination";
 import pm_toolButton from "@/components/common/button/pm_toolButton";
 import pm_tool_bar from "@/components/common/table/pm_tool_bar";
-import meterialEdit from "./MeterialEdit";
+import qualityEdit from "./QualityEdit";
 export default {
   components: {
     metro_page,
@@ -90,16 +96,10 @@ export default {
       // 搜索区域条件
       searchFields: [
         {
-          displayName: "材质名称",
-          fieldName: "name",
+          displayName: "入库单号",
+          fieldName: "wmsInCode",
           xtype: "text",
-          searchLoc: "1-1-8-8-0"
-        },
-        {
-          displayName: "助记码",
-          fieldName: "mnemonicCode",
-          xtype: "text",
-          searchLoc: "1-2-8-8-0"
+          searchLoc: "1-1-10-8-0"
         },
         {
           displayName: "",
@@ -115,13 +115,13 @@ export default {
     addWin: function() {
       this.$layer.iframe({
         content: {
-          content: meterialEdit, //传递的组件对象
+          content: qualityEdit, //传递的组件对象
           parent: this, //当前的vue对象
           data: { entity: JSON.stringify({}) } //props
         },
-        area: ["400px", "300px"],
+        area: ["600px", "360px"],
         shadeClose: false,
-        title: "添加材质"
+        title: "添加质检信息"
       });
     },
     //进入编辑页面
@@ -129,37 +129,35 @@ export default {
       var $this = this;
       $this.$layer.iframe({
         content: {
-          content: meterialEdit, //传递的组件对象
+          content: qualityEdit, //传递的组件对象
           parent: $this, //当前的vue对象
           data: { key: row.id, entity: JSON.stringify(row) } //props
         },
-        area: ["400px", "300px"],
+        area: ["600px", "360px"],
         shadeClose: false,
-        title: "编辑材质[" + row.name + "]"
+        title: "编辑质检信息[" + row.wmsInCode + "]"
       });
     },
     getParam: function() {
       console.log(this.formModel);
-      this.$refs["demoForm"].validate();
+      // this.$refs["demoForm"].validate();
     },
     queryData: function() {
       this.$refs.pager.refreshData();
     },
     getList: function(page, size) {
       var param = this.$refs.pm_search.getParam();
-      param.page = page;
-      param.size = size;
+      param.page = {};
+      param.page.current = page;
+      param.page.size = size;
       var table = this;
-      httpUtil.post("base/getBaseTextureList", param, data => {
-        table.dataSource = data.content;
+      httpUtil.post("quality/getQualitiesByPage", param, data => {
+        table.dataSource = data.records;
         table.totalSize = data.total;
       });
     },
     getTableInfo: function(row) {
-      //console.log(row);
       console.log("以下是获取整个Table的数据");
-      // console.log(this.$refs.pmTable.getTableInfo());
-      // console.log(this.$refs.pmTable.getRowInfo(2));
     },
     /**
      * 刷新列表
@@ -183,9 +181,9 @@ export default {
         type: "warning"
       }).then(() => {
         //发送请求删除数据
-        httpUtil.post("base/deleteBaseTexture", selectRow, data => {
+        httpUtil.post("quality/deleteQualityInfo", selectRow, data => {
           this.$message({
-            message: "作废材质成功",
+            message: "作废质检信息成功",
             type: "success"
           });
           $this.refreshList();
