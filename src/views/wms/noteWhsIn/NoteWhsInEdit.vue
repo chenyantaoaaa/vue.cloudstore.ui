@@ -5,14 +5,15 @@
             <metro_page_box_body class="edit_padding">
                 <pm_form_render :model="formModel" :rules="rules" ref="inFrom" :entity='config.entity' v-bind:formReadOnly='formReadOnly'>
                     <pm_form_item row="1" labletext="入库单号" name="whsinCode" :span="6" xtype="text" lableWidth="70px"  :readOnly='true'></pm_form_item>
-                    <pm_form_item row="1" labletext="货主单位" name="cstId" :span="6" xtype="search_select_input" lableWidth="90px" required></pm_form_item>
-                    <pm_form_item row="1" labletext="入库方式" name="whsinType" :span="6" xtype="select" lableWidth="70px"></pm_form_item>
-                    <pm_form_item row="1" labletext="入库类型" name="whsinStyle" :span="6" xtype="select" lableWidth="70px"></pm_form_item>
+                    <pm_form_item row="1" labletext="客户名称" name="clientName" :span="6" xtype="text" lableWidth="90px" required></pm_form_item>
+                    <pm_form_item row="1" labletext="克重" name="gramWeight" :span="6" xtype="text" lableWidth="70px"></pm_form_item>
+                    <pm_form_item row="1" labletext="幅宽" name="clothWidth" :span="6" xtype="text" lableWidth="70px"></pm_form_item>
+                    <pm_form_item row="2" labletext="个数" name="num" :span="6" xtype="text" lableWidth="70px"></pm_form_item>
+                    <pm_form_item row="2" labletext="班次" name="classes" :span="6" xtype="text" lableWidth="90px"></pm_form_item>
                     <pm_form_item row="2" labletext="制单人" name="creatorNameTime" :span="6" xtype="text" lableWidth="70px" :readOnly='true'></pm_form_item>
-                    <pm_form_item row="2" labletext="审核人" name="auditorNameTime" :span="6" xtype="text" lableWidth="75px"  :readOnly='true'></pm_form_item>
-                    <pm_form_item row="2" labletext="入库通知单号" name="billAttachmentId" :span="6" xtype="text" lableWidth="100px"></pm_form_item>
-                    <pm_form_item row="2" labletext="入库状态" name="status" :span="6" xtype="select" lableWidth="70px" :readOnly='true'></pm_form_item>
+                    <pm_form_item row="2" labletext="品名" name="brand" :span="6" xtype="text" lableWidth="70px" :rowHeight='2'></pm_form_item>
                     <pm_form_item row="3" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="70px" :rowHeight='2'></pm_form_item>
+                    
                 </pm_form_render>
                 <pm_upload ref="upload" btnIcon='el-icon-upload2' :fileList.sync='formModel.fileList'></pm_upload>
                 <pm_tool_bar>
@@ -30,30 +31,12 @@
             <!-- body内容区域 -->
             <metro_page_box_body>
                 <pm_table ref="pmTable" tableKey="NoteWhsInEdit-pmTable" :dataSource="dataSource" :config="config" :bottomHeight="170">
-                    <pm_column prop="cardNo" label="卡号" width="200"></pm_column>
                     <pm_column prop="packNo" label="捆包号" width="200"></pm_column>
-                    <pm_column prop="brandId" label="品名" width="200" required></pm_column>
-                    <pm_column prop="textureId" label="材质" width="200" watchField="brandId" required></pm_column>
-                    <pm_column prop="spec" label="规格" width="200" required></pm_column>
-                    <pm_column prop="producingId" label="产地" width="200" required></pm_column>
-                    <pm_column prop="calcType" label="计重方式" width="200" :cellCanEdit='cellCanEdit' required></pm_column>
-                    <pm_column prop="measurementUnit" label="数量单位" width="200" required></pm_column>
-                    <pm_column prop="amount" label="数量" width="200" required></pm_column>
+                    <pm_column prop="batchNo" label="批次号" width="200" required></pm_column>
+                    <pm_column prop="coilLength" label="卷长" width="200"  required></pm_column>
                     <pm_column prop="netWeight" label="净重" width="200" required></pm_column>
                     <pm_column prop="grossWeight" label="毛重" width="200"></pm_column>
-                    <pm_column prop="poundWeight" label="磅重" width="200"></pm_column>
-                    <pm_column prop="unitNumber" label="单包支数" width="200"></pm_column>
-                    <pm_column prop="whsCalcStackId" label="库区" width="200" parentPropName='whsRoomId' childPropName='whsAreaId' required></pm_column>
-                    <pm_column prop="whsStackName" label="库位" width="200"></pm_column>
-                    <pm_column prop="whsLayer" label="入库层" width="200"></pm_column>
-                    <pm_column prop="transceiver" label="收发人" width="200"></pm_column>
-                    <pm_column prop="slinger" label="吊机工" width="200"></pm_column>
-                    <pm_column prop="whsManager" label="仓管" width="200"></pm_column>
-                    <pm_column prop="manufactureTime" label="出厂时间" width="200"></pm_column>
-                    <pm_column prop="transportCode" label="车船号" width="200"></pm_column>
-                    <pm_column prop="whsinTime" label="首入库时间" width="200" required></pm_column>
-                    <pm_column prop="stoveCode" label="炉号" width="200"></pm_column>
-                    <pm_column prop="remark" label="备注" width="200"></pm_column>
+                    <pm_column prop="productTime" label="生产时间" width="200"></pm_column>
                 </pm_table>
                 <pm_tool_bar :noBackground="true">
                     <pm_toolButton ref='add' btnName ="保存" btnIcon ="el-icon-circle-plus-outline" :btnClickFunc ='saveInfo'></pm_toolButton>

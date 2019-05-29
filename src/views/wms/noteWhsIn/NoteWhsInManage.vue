@@ -9,7 +9,7 @@
           ref="pm_search"
           :btnOffset="10"
           :packNoSearchSpan="6"
-          :hasPackNoSearch="true"
+          :hasPackNoSearch="false"
           :packRowHeight="3"
           :fields="searchFields"
           v-on:getAllSearchParams="queryData"
@@ -79,17 +79,17 @@
           :config="config"
         >
           <pm_column prop="whsinCode" label="入库单号" width="112"></pm_column>
-          <pm_column prop="cstName" label="货主单位" width="180"></pm_column>
-          <pm_column prop="whsinType" label="入库方式" width="100"></pm_column>
-          <pm_column prop="auditorName" label="审核人" width="120"></pm_column>
-          <pm_column prop="creatorName" label="制单人" width="120"></pm_column>
-          <pm_column prop="billAttachmentId" label="入库通知单号" width="120"></pm_column>
-          <pm_column prop="createTime" label="制单日期" width="150"></pm_column>
-          <pm_column prop="status" label="单据状态" width="95"></pm_column>
-          <pm_column prop="totalAmount" label="总数量" width="100"></pm_column>
-          <pm_column prop="totalNetWeight" label="总净重" width="100"></pm_column>
-          <pm_column prop="totalGrossWeight" label="总毛重" width="100"></pm_column>
-          <pm_column prop="totalPoundWeight" label="总磅重" width="100"></pm_column>
+          <pm_column prop="clientName" label="客户名称" width="180"></pm_column>
+          <pm_column prop="brand" label="品名" width="100"></pm_column>
+          <pm_column prop="gramWeight" label="克重" width="120"></pm_column>
+          <pm_column prop="classes" label="班次" width="95"></pm_column>
+          <pm_column prop="clothWidth" label="幅宽" width="100"></pm_column>
+          <pm_column prop="num" label="个数" width="100"></pm_column>
+          <pm_column prop="remark" label="备注" width="150"></pm_column>
+          <pm_column prop="createTime" label="创建时间" width="150"></pm_column>
+          <pm_column prop="creator" label="创建人" width="150"></pm_column>
+          <pm_column prop="modifier" label="修改人" width="150"></pm_column>
+          <pm_column prop="modifyTime" label="修改时间" width="150"></pm_column>
         </pm_table>
         <pm_pagination ref="pager" :totalSize="totalSize" :queryData="getList"></pm_pagination>
       </metro_page_box_body>
@@ -162,68 +162,43 @@ export default {
           searchLoc: "1-1-6-8-0"
         },
         {
-          displayName: "货主单位",
-          fieldName: "cstId",
+          displayName: "工艺",
+          fieldName: "techId",
           xtype: "search_select_input",
           searchLoc: "1-2-6-8-0"
         },
         {
-          displayName: "卡号",
-          fieldName: "cardNo",
+          displayName: "客户名称",
+          fieldName: "clientName",
           xtype: "text",
           searchLoc: "1-3-6-8-0"
         },
         {
           displayName: "品名",
-          fieldName: "brandId",
-          xtype: "search_select_input",
+          fieldName: "brand",
+          xtype: "text",
           searchLoc: "1-4-6-8-0"
         },
         {
-          displayName: "材质",
-          fieldName: "textureId",
-          xtype: "search_select_input",
+          displayName: "班次",
+          fieldName: "classes",
+          xtype: "text",
           searchLoc: "2-1-6-8-0"
         },
         {
-          displayName: "规格",
-          fieldName: "spec",
+          displayName: "备注",
+          fieldName: "remark",
           xtype: "text",
           searchLoc: "2-2-6-8-0"
-        },
-        {
-          displayName: "产地",
-          fieldName: "producingId",
-          xtype: "search_select_input",
-          searchLoc: "2-3-6-8-0"
-        },
-        {
-          displayName: "入库库区",
-          fieldName: "whsRoomId",
-          xtype: "tree_select",
-          searchLoc: "2-4-6-8-0",
-          extQuryParam: { whsRoomId: "whsRoomId", whsAreaId: "whsAreaId" }
-        },
-        {
-          displayName: "入库方式",
-          fieldName: "whsinType",
-          xtype: "select",
-          searchLoc: "3-1-6-8-0"
         },
         {
           displayName: "创建时间",
           fieldName: "createTime",
           xtype: "datetimerange",
-          searchLoc: "3-3-12-4-0",
+          searchLoc: "2-3-12-4-0",
           dateBegin: "createTimeStart",
           dateEnd: "createTimeEnd"
         },
-        {
-          displayName: "单据状态",
-          fieldName: "status",
-          xtype: "select",
-          searchLoc: "3-2-6-8-0"
-        }
       ]
     };
   },
