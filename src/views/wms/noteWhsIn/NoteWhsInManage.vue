@@ -18,46 +18,39 @@
           <pm_toolButton
             ref="addBtn"
             btnName="新增"
-            btnPermission="btn_add"
             btnIcon="el-icon-circle-plus-outline"
             :btnClickFunc="addTab"
           ></pm_toolButton>
           <pm_toolButton
             btnName="作废"
-            btnPermission="btn_del"
             btnIcon="el-icon-delete"
             :btnClickFunc="deleteInfo"
           ></pm_toolButton>
-          <pm_toolButton
+          <!-- <pm_toolButton
             btnName="审核"
-            btnPermission="btn_check"
             btnIcon="el-icon-circle-check-outline"
             :btnClickFunc="auditInfo"
           ></pm_toolButton>
           <pm_toolButton
             btnName="打印"
-            btnPermission="btn_print"
             btnIcon="el-icon-printer"
             :btnClickFunc="printInfo"
           ></pm_toolButton>
           <pm_toolButton
             btnName="结算"
-            btnPermission="btn_settle"
             btnIcon="el-icon-sold-out"
             :btnClickFunc="settleInfo"
           ></pm_toolButton>
           <pm_toolButton
             btnName="导出"
-            btnPermission="btn_export"
             btnIcon="el-icon-document"
             :btnClickFunc="exportFunc"
           ></pm_toolButton>
           <pm_toolButton
             btnName="调整"
-            btnPermission="btn_adjust"
             btnIcon="el-icon-edit-outline"
             :btnClickFunc="adjustTab"
-          ></pm_toolButton>
+          ></pm_toolButton> -->
         </pm_tool_bar>
       </metro_page_box_body>
     </metro_page_box>
@@ -78,18 +71,17 @@
           :totalData="totalData"
           :config="config"
         >
-          <pm_column prop="whsinCode" label="入库单号" width="112"></pm_column>
+          <pm_column prop="whsinCode" label="入库单号" width="200"></pm_column>
           <pm_column prop="clientName" label="客户名称" width="180"></pm_column>
-          <pm_column prop="brand" label="品名" width="100"></pm_column>
+          <pm_column prop="brand" label="品名" width="160"></pm_column>
           <pm_column prop="gramWeight" label="克重" width="120"></pm_column>
-          <pm_column prop="classes" label="班次" width="95"></pm_column>
-          <pm_column prop="clothWidth" label="幅宽" width="100"></pm_column>
-          <pm_column prop="num" label="个数" width="100"></pm_column>
-          <pm_column prop="remark" label="备注" width="150"></pm_column>
-          <pm_column prop="createTime" label="创建时间" width="150"></pm_column>
-          <pm_column prop="creator" label="创建人" width="150"></pm_column>
-          <pm_column prop="modifier" label="修改人" width="150"></pm_column>
-          <pm_column prop="modifyTime" label="修改时间" width="150"></pm_column>
+          <pm_column prop="classes" label="班次" width="120"></pm_column>
+          <pm_column prop="clothWidth" label="幅宽" width="120"></pm_column>
+          <pm_column prop="num" label="个数" width="120"></pm_column>
+          <pm_column prop="createTime" label="创建时间" width="160"></pm_column>
+          <pm_column prop="creator" label="创建人" width="160"></pm_column>
+          <pm_column prop="modifier" label="修改人" width="160"></pm_column>
+          <pm_column prop="modifyTime" label="修改时间" width="160"></pm_column>
         </pm_table>
         <pm_pagination ref="pager" :totalSize="totalSize" :queryData="getList"></pm_pagination>
       </metro_page_box_body>
@@ -186,19 +178,19 @@ export default {
           searchLoc: "2-1-6-8-0"
         },
         {
-          displayName: "备注",
-          fieldName: "remark",
-          xtype: "text",
-          searchLoc: "2-2-6-8-0"
-        },
-        {
           displayName: "创建时间",
           fieldName: "createTime",
           xtype: "datetimerange",
-          searchLoc: "2-3-12-4-0",
+          searchLoc: "2-2-12-4-0",
           dateBegin: "createTimeStart",
           dateEnd: "createTimeEnd"
         },
+        {
+          displayName: "",
+          fieldName: "btn_search",
+          xtype: "btn",
+          searchLoc: "2-3-2-8-4"
+        }
       ]
     };
   },
@@ -358,9 +350,13 @@ export default {
     getData(callback,page,size) {
       var param = this.$refs.pm_search.getParam();
       this.$commonUtil.handler.packNoHander(param);
-      param.page = page || 0;
-      param.size = size || 100000;
-      httpUtil.post("whsin/getWhsinInfoBypage", param, data => {
+      param.page = {
+        "current" : page||0,
+        "size" : size||100000
+      }
+      //param.page = page || 0;
+      //param.size = size || 100000;
+      httpUtil.post("wmsin/viewPageList", param, data => {
         if (callback) {
           callback(data);
         }
