@@ -1,10 +1,18 @@
 <template>
 <el-container style="padding:5px;">
   <el-main style="padding:10px;">
-    <pm_form_render :model="formModel" :rules="rules" ref="demoForm">
-        <pm_form_item row="1" labletext="材质名称" name="name" :span="24" xtype="text" maxlength="20" lableWidth="80px" required></pm_form_item>
-        <pm_form_item row="2" labletext="助记码" name="mnemonicCode" :span="24" xtype="text" maxlength="20"  lableWidth="80px"></pm_form_item>
-        <pm_form_item row="3" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="80px"  maxlength="100" ></pm_form_item>
+    <pm_form_render :model="formModel" :rules="rules" ref="qualityForm">
+      <pm_form_item row="1" labletext="入库单号" name="wmsInCode" :span="12" xtype="text" maxlength="20" lableWidth="80px" required></pm_form_item>
+      <pm_form_item row="1" labletext="纵向强力" name="portraitPower" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="2" labletext="横向强力" name="transversePower" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="2" labletext="纵横比" name="ratio" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="3" labletext="纵向牵伸" name="portraitDrafting" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="3" labletext="横向牵伸" name="transverseDrafting" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="4" labletext="单丝细度" name="singleSilkThin" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="4" labletext="厚度" name="thickness" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="5" labletext="均匀度" name="even" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="5" labletext="柔软度" name="soft" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="6" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="80px"  maxlength="100" ></pm_form_item>
     </pm_form_render>
   </el-main>
   <el-footer style="padding:0px;">
@@ -79,15 +87,15 @@ export default {
       //准备修改数据
       var data = this.$commonUtil.deepClone(this.formModel);
       //alert(JSON.stringify(data));      
-      this.$refs["demoForm"].validate(this,valid => {
+      this.$refs["qualityForm"].validate(this,valid => {
         if (data.id == null) {
-          this.$httpUtil.post("base/addBaseTexture", data, result => {
-            this.$layer.msg("材质新增成功!");
+          this.$httpUtil.post("quality/addQualityInfo", data, result => {
+            this.$layer.msg("质检信息新增成功!");
             this.refreshList();
           });
         } else {
-          this.$httpUtil.post("base/updateBaseTexture", data, result => {
-            this.$layer.msg("材质修改成功!");
+          this.$httpUtil.post("quality/updateQualityInfo", data, result => {
+            this.$layer.msg("质检信息修改成功!");
             this.refreshList();
           });
         }
@@ -99,7 +107,7 @@ export default {
     },
     getParam: function() {
       console.log(this.formModel);
-      this.$refs["demoForm"].validate();
+      this.$refs["qualityForm"].validate();
     },
     getTableInfo: function(row) {
       console.log(row);
