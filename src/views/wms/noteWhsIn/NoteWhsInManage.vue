@@ -71,7 +71,7 @@
           :totalData="totalData"
           :config="config"
         >
-          <pm_column prop="whsinCode" label="入库单号" width="200"></pm_column>
+          <pm_column prop="whsInCode" label="入库单号" width="200"></pm_column>
           <pm_column prop="clientName" label="客户名称" width="180"></pm_column>
           <pm_column prop="brand" label="品名" width="160"></pm_column>
           <pm_column prop="gramWeight" label="克重" width="120"></pm_column>
@@ -149,7 +149,7 @@ export default {
       searchFields: [
         {
           displayName: "入库单号",
-          fieldName: "whsinCode",
+          fieldName: "whsInCode",
           xtype: "text",
           searchLoc: "1-1-6-8-0"
         },
@@ -182,14 +182,14 @@ export default {
           fieldName: "createTime",
           xtype: "datetimerange",
           searchLoc: "2-2-12-4-0",
-          dateBegin: "createTimeStart",
-          dateEnd: "createTimeEnd"
+          dateBegin: "createStartTime",
+          dateEnd: "createEndTime"
         },
         {
           displayName: "",
           fieldName: "btn_search",
           xtype: "btn",
-          searchLoc: "2-3-2-8-4"
+          searchLoc: "2-3-4-8-2"
         }
       ]
     };
@@ -207,8 +207,8 @@ export default {
       let _this = this;
       let row = this.getSelectRow();
       this.$commonUtil.getDetailEntity(
-        "whsin/getInDetailByMainId",
-        { whsinMainId: row.id },
+        "wmsin/getInDetailByMainId",
+        { mainId: row.id },
         row,
         function(entity) {
           _this.$refs.print.printDiv(entity);
@@ -219,7 +219,7 @@ export default {
       var $this = this;
       //1.查询时先获取所有的数据
       this.getData(data => {
-        $this.totalData = data.content;
+        $this.totalData = data.records;
         //2.触发查询
         $this.$refs.pager.refreshData();
       });
@@ -227,7 +227,7 @@ export default {
     getList: function(page, size) {
       var table = this;
       this.getData(data => {
-        table.dataSource = data.content;
+        table.dataSource = data.records;
         table.totalSize = data.total;
       },page,size);
     },
@@ -245,12 +245,12 @@ export default {
     //打开编辑入库单 tab页
     editTab: function(row, event) {
       var $this = this;
-      this.$commonUtil.getEntityNoPageWithFile(
-        "whsin/getInInfoByMainId",
-        "whsin/getInDetailByMainId",
-        "file/getFileItemInfo",
-        { id: row.id, whsinMainId: row.id, bizType: 1, bizId: row.id },
+      this.$commonUtil.getEntityNoPage(
+        "wmsin/getInfoById",
+        "wmsin/getDetailListByMainId",
+        { id: row.id, mainId: row.id, bizType: 1, bizId: row.id },
         function(entity) {
+          entity.details = entity.detailList;
           var titleHead = "编辑";
           if (entity.moveStatus == 2) {
             //入库完成
@@ -370,7 +370,7 @@ export default {
       this.getData(data => {
         //获取表单的信息
         var table = $this.$refs.pmTable;
-        $this.$commonUtil.cloudExport($this, data.content, table, "入库单列表");
+        $this.$commonUtil.cloudExport($this, data.records, table, "入库单列表");
       });
     },
     settleInfo() {
@@ -385,8 +385,8 @@ export default {
       }
       var entity = this.$commonUtil.deepClone(selectRow);
       selectRow.whsinMainId = selectRow.id;
-      httpUtil.post("whsin/getInDetailByMainId", selectRow, data => {
-        entity.detailList = data;
+      httpUtil.post("wmsin/getInDetailByMainId", selectRow, data => {
+        entity.details = data;
         $this.wrapData(entity);
         const costBalanceItem = {
           component: costBalanceAddManage,

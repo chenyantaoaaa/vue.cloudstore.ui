@@ -59,5 +59,15 @@ export default {
             type: baseType.decimal,
             summary:true,
         },
+
+        productTime:{
+            type: baseType.datetime,
+        },
+        packNo:{
+            type: baseType.int
+        },
+        modifyTime:{
+            type:baseType.datetime
+        }
     }
 };

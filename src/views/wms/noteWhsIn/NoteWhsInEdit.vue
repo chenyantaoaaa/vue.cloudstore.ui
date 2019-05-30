@@ -4,17 +4,17 @@
         <metro_page_box>
             <metro_page_box_body class="edit_padding">
                 <pm_form_render :model="formModel" :rules="rules" ref="inFrom" :entity='config.entity' v-bind:formReadOnly='formReadOnly'>
-                    <pm_form_item row="1" labletext="入库单号" name="whsinCode" :span="6" xtype="text" lableWidth="70px"  :readOnly='true'></pm_form_item>
+                    <pm_form_item row="1" labletext="入库单号" name="whsInCode" :span="6" xtype="text" lableWidth="70px"  :readOnly='true'></pm_form_item>
                     <pm_form_item row="1" labletext="客户名称" name="clientName" :span="6" xtype="text" lableWidth="90px" required></pm_form_item>
-                    <pm_form_item row="1" labletext="克重" name="gramWeight" :span="6" xtype="text" lableWidth="70px"></pm_form_item>
-                    <pm_form_item row="1" labletext="幅宽" name="clothWidth" :span="6" xtype="text" lableWidth="70px"></pm_form_item>
-                    <pm_form_item row="2" labletext="个数" name="num" :span="6" xtype="text" lableWidth="70px"></pm_form_item>
+                    <pm_form_item row="1" labletext="克重" name="gramWeight" :span="6" xtype="number" lableWidth="70px" required></pm_form_item>
+                    <pm_form_item row="1" labletext="幅宽" name="clothWidth" :span="6" xtype="number" lableWidth="70px" required></pm_form_item>
+                    <pm_form_item row="2" labletext="个数" name="num" :span="6" xtype="number" lableWidth="70px" required></pm_form_item>
                     <pm_form_item row="2" labletext="班次" name="classes" :span="6" xtype="text" lableWidth="90px"></pm_form_item>
                     <pm_form_item row="2" labletext="制单人" name="creatorNameTime" :span="6" xtype="text" lableWidth="70px" :readOnly='true'></pm_form_item>
-                    <pm_form_item row="2" labletext="品名" name="brand" :span="6" xtype="text" lableWidth="70px" :rowHeight='2'></pm_form_item>
+                    <pm_form_item row="2" labletext="品名" name="brand" :span="6" xtype="text" lableWidth="70px" :rowHeight='2' required></pm_form_item>
                     <pm_form_item row="3" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="70px" :rowHeight='2'></pm_form_item>
                 </pm_form_render>
-                <pm_upload ref="upload" btnIcon='el-icon-upload2' :fileList.sync='formModel.fileList'></pm_upload>
+                <!-- <pm_upload ref="upload" btnIcon='el-icon-upload2' :fileList.sync='formModel.fileList'></pm_upload> -->
                 <pm_tool_bar>
                     <pm_toolButton  ref="downExcel" btnName ="下载导入模板" btnIcon ="el-icon-download" :btnClickFunc ='downImportModel'></pm_toolButton>
                     <pm_upload ref="uploadExcel" btnIcon='el-icon-upload2' labelName='导入' :IsShow='false' :isSingle='true' :request='uploadExcel'></pm_upload>
@@ -30,11 +30,12 @@
             <!-- body内容区域 -->
             <metro_page_box_body>
                 <pm_table ref="pmTable" tableKey="NoteWhsInEdit-pmTable" :dataSource="dataSource" :config="config" :bottomHeight="170">
-                    <pm_column prop="packNo" label="捆包号" width="300"></pm_column>
+                    <pm_column prop="packNo" label="捆包号" width="200"></pm_column>
                     <pm_column prop="batchNo" label="批次号" width="250" required></pm_column>
-                    <pm_column prop="coilLength" label="卷长" width="250"  required></pm_column>
-                    <pm_column prop="netWeight" label="净重" width="250" required></pm_column>
-                    <pm_column prop="grossWeight" label="毛重" width="250"></pm_column>
+                    <pm_column prop="barCode" label="条形码" width="250" required></pm_column>
+                    <pm_column prop="coilLength" label="卷长" width="200"  required></pm_column>
+                    <pm_column prop="netWeight" label="净重" width="200" required></pm_column>
+                    <pm_column prop="grossWeight" label="毛重" width="200"></pm_column>
                     <pm_column prop="productTime" label="生产时间" width="300"></pm_column>
                 </pm_table>
                 <pm_tool_bar :noBackground="true">
@@ -230,7 +231,7 @@
             settleInfo(){
                 var $this = this;
                 var submitModel =JSON.parse(JSON.stringify(this.formModel));
-                submitModel.detailList = this.dataSource;
+                submitModel.details = this.dataSource;
                 this.wrapData(submitModel);
 				const costBalanceItem = {
                 	component: costBalanceAddManage,
@@ -240,18 +241,18 @@
             	this.$tab.open(costBalanceItem);
             },
             wrapData(entity){
-                entity.businessNo = entity.whsinCode;
+                entity.businessNo = entity.whsInCode;
                 entity.cstId = entity.cstId;
                 entity.businessType = 1;
                 entity.createDate = entity.createTime;
                 entity.creatorData = entity.creator;
-                if(!entity.detailList){
+                if(!entity.details){
                     return;
                 }
-                entity.detailList.forEach(element => {
+                entity.details.forEach(element => {
                     element.material = element.textureId;
                     element.productPlace = element.producingId;
-                    element.businessNo = element.whsinCode;
+                    element.businessNo = element.whsInCode;
                     //element.transferDate = element.transferTime;
                     element.whsInFirstDate = element.whsinTime;
                     element.createDate = element.createTime;
@@ -264,12 +265,12 @@
                     element.businessType = 1;
                     element.costDate = element.costTime;
                 });
-                entity.detail=entity.detailList;
+                entity.detail=entity.details;
             },
             printInfo:function(){
                 let _this = this;
-                this.$commonUtil.getDetailEntity("whsin/getInDetailByMainId",
-                    {whsinMainId: this.formModel.id},
+                this.$commonUtil.getDetailEntity("wmsin/getInDetailByMainId",
+                    {mainId: this.formModel.id},
                      this.formModel,
                     function(entity){
                         _this.$refs.print.printDiv(entity);
@@ -280,25 +281,29 @@
                 var entity = this.$options.parent.propsData.entity;
                 this.$set(entity,"env","bs");
                 if(entity.editFlag == '3'){
-                    entity.whsinCode = this.$commonUtil.appConst.nullNo;
-                    entity.creatorName = cacheUtil.getUser().configUser.name;
+                    entity.whsInCode = this.$commonUtil.appConst.nullNo;
+                    //entity.creatorName = cacheUtil.getUser().configUser.name;
                     this.$set(entity,"status",1);
                     this.$set(entity,"whsinType",1);
                     this.$set(entity,"whsinStyle",2);
                 }else if(entity.editFlag == '1'){//编辑操作
                     //如果是已完成状态的单据 禁用整个界面
-                    if(entity.status == 2){
-                        this.formReadOnly = true;
-                        this.config.allowEdit = false;
-                    }
+                    // if(entity.status == 2){
+                    //     this.formReadOnly = true;
+                    //     this.config.allowEdit = false;
+                    // }
+                    //修改前明细数据 进行一次深拷贝
+                    entity.preDetails = this.$commonUtil.deepClone(entity.details);
                 }
                 if(entity.createTime){
                     entity.creatorNameTime = entity.creatorName + " ." + entity.createTime;
                 }
-                if(entity.auditorName){
-                    entity.auditorNameTime = entity.auditorName + " ." + entity.auditTime;
-                }
-                this.dataSource = entity.detailList;
+                // if(entity.auditorName){
+                //     entity.auditorNameTime = entity.auditorName + " ." + entity.auditTime;
+                // }
+                //进行一次深拷贝
+                //页面上的绑定数据源
+                this.dataSource = this.$commonUtil.deepClone(entity.details);
                 return entity;
             },
             adjustBtnInit:function(){
@@ -319,7 +324,9 @@
                 detail.netWeight = 0;
                 detail.grossWeight = 0;
                 detail.poundWeight = 0;
-                this.$set(detail,"whsinTime",new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours(), new Date().getMinutes(), new Date().getSeconds()));
+                this.$set(detail,"productTime",new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours(), new Date().getMinutes(), new Date().getSeconds()));
+                //detail.productTime = new Date();
+                //this.$set(detail,"whsinTime",new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), new Date().getHours(), new Date().getMinutes(), new Date().getSeconds()));
                 $this.dataSource =  $this.dataSource.concat(detail);
             },
             deleteRows: function() {
@@ -331,18 +338,18 @@
                 }
                 //从数据源中移除数据
                 commonUtil.removeSelectedRows2(rows,this.dataSource);
-                if(!$this.deleteIdList){
-                    $this.deleteIdList = [];
-                }
-                if(!$this.delPackNoList){
-                    $this.delPackNoList = [];
-                }
-                rows.forEach(row => {
-                    if(row.id){
-                        $this.deleteIdList.push(row.id);
-                        $this.delPackNoList.push(row.packId);
-                    }
-                });
+                // if(!$this.deleteIdList){
+                //     $this.deleteIdList = [];
+                // }
+                // if(!$this.delPackNoList){
+                //     $this.delPackNoList = [];
+                // }
+                // rows.forEach(row => {
+                //     if(row.id){
+                //         $this.deleteIdList.push(row.id);
+                //         $this.delPackNoList.push(row.packId);
+                //     }
+                // });
             },
             copyRows:function(){
                 var $this = this;
@@ -365,19 +372,19 @@
                 $this.dataSource =  $this.dataSource.concat(newRows);
             },
             cellCanEdit:function(row,prop){
-                var brandNameList = this.$cacheUtil.getDic().BrandNameList.list;
-                var brand= brandNameList.filter(item => item.id === row.brandId)[0];
-                if(brand && brand.whsoutType == 2){//按吨出库的品名
-                    if(prop == 'calcType'){
-                        return false;
-                    }
-                }else{
-                    return true;
-                }
+                // var brandNameList = this.$cacheUtil.getDic().BrandNameList.list;
+                // var brand= brandNameList.filter(item => item.id === row.brandId)[0];
+                // if(brand && brand.whsoutType == 2){//按吨出库的品名
+                //     if(prop == 'calcType'){
+                //         return false;
+                //     }
+                // }else{
+                //     return true;
+                // }
             },
             downImportModel:function(){
-              httpUtil.postForFile("whsin/downTemplate", null,'入库导入模板.xls', data => {
-              }); 
+            //   httpUtil.postForFile("whsin/downTemplate", null,'入库导入模板.xls', data => {
+            //   }); 
             },
             //更新标题
             updateTitle: function(title) {
@@ -388,95 +395,96 @@
                 {
                     this.$commonUtil.valid.throwEx("明细不能为空！");
                 }
-                var brandNameList = this.$cacheUtil.getDic().BrandNameList.list;
-                var rowNum = 1;
-                details.forEach(item => {
-                    var brand= brandNameList.filter(brand => brand.id === item.brandId)[0];
-                    // if(this.$commonUtil.IsNull(item.whsStackName)){
-                    //      this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据库位信息不能为空!");
-                    // }
-                    if(this.$commonUtil.IsNull(item.brandId)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据品名不能为空!");
-                    }                                                                                                                                   
-                    if(this.$commonUtil.IsNull(item.textureId)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据材质不能为空!");
-                    }
-                    if(this.$commonUtil.IsNull(item.spec)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据规格不能为空!");
-                    }
-                    if(this.$commonUtil.IsNull(item.producingId)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据产地不能为空!");
-                    }
-                    if(this.$commonUtil.IsNull(item.amount)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据数量不能为空!");
-                    }
-                    if(brand && brand.whsoutType == 1 && item.amount<=0){
-                          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据按件出库的品名数量必须大于0!");
-                    }
-                    if(brand && brand.whsoutType == 2 && item.netWeight<=0){
-                          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据按吨出库的品名净重必须大于0!");
-                    }
-                    if(this.$commonUtil.IsNull(item.netWeight)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据净重不能为空!");
-                    }
-                    if(this.$commonUtil.IsNull(item.calcType)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据计重方式不能为空!");
-                    }
-                    if(this.$commonUtil.IsNull(item.measurementUnit)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据数量单位不能为空!");
-                    }
-                    if(this.$commonUtil.IsNull(item.whsinTime)){
-                         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据首入库时间不能为空!");
-                    }
-                    if(this.$commonUtil.IsNull(item.whsRoomId)&& this.$commonUtil.IsNull(item.whsAreaId))
-                    {
-                        this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据入库库区信息不能为空!");
-                    }
-                    //前端校验不能有重复的捆包号
-                    if(!this.$commonUtil.IsNull(item.packNo) && details.filter(a =>{if(a.packNo &&  a.packNo === item.packNo){
-                        return a;
-                    }else{
-                        return null;
-                    }}).length > 1){
-                        this.$commonUtil.valid.throwEx("重复的捆包号:" + item.packNo);
-                    }
-                    rowNum = rowNum+1;
-                });
+                // var brandNameList = this.$cacheUtil.getDic().BrandNameList.list;
+                // var rowNum = 1;
+                // details.forEach(item => {
+                //     var brand= brandNameList.filter(brand => brand.id === item.brandId)[0];
+                //     // if(this.$commonUtil.IsNull(item.whsStackName)){
+                //     //      this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据库位信息不能为空!");
+                //     // }
+                //     if(this.$commonUtil.IsNull(item.brandId)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据品名不能为空!");
+                //     }                                                                                                                                   
+                //     if(this.$commonUtil.IsNull(item.textureId)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据材质不能为空!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.spec)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据规格不能为空!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.producingId)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据产地不能为空!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.amount)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据数量不能为空!");
+                //     }
+                //     if(brand && brand.whsoutType == 1 && item.amount<=0){
+                //           this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据按件出库的品名数量必须大于0!");
+                //     }
+                //     if(brand && brand.whsoutType == 2 && item.netWeight<=0){
+                //           this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据按吨出库的品名净重必须大于0!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.netWeight)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据净重不能为空!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.calcType)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据计重方式不能为空!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.measurementUnit)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据数量单位不能为空!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.whsinTime)){
+                //          this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据首入库时间不能为空!");
+                //     }
+                //     if(this.$commonUtil.IsNull(item.whsRoomId)&& this.$commonUtil.IsNull(item.whsAreaId))
+                //     {
+                //         this.$commonUtil.valid.throwEx(this,"第"+rowNum+"行数据入库库区信息不能为空!");
+                //     }
+                //     //前端校验不能有重复的捆包号
+                //     if(!this.$commonUtil.IsNull(item.packNo) && details.filter(a =>{if(a.packNo &&  a.packNo === item.packNo){
+                //         return a;
+                //     }else{
+                //         return null;
+                //     }}).length > 1){
+                //         this.$commonUtil.valid.throwEx("重复的捆包号:" + item.packNo);
+                //     }
+                //     rowNum = rowNum+1;
+                // });
             },
             saveInfo:function(){
                 this.$refs["inFrom"].validate(this);
                 //组装请求参数对象  
-                var $this = this;
-                var cstList= this.dicCache.CstList.list;
-                this.formModel.cstName = cstList.filter(item => item.id === this.formModel.cstId)[0].cstFullName;
-                this.formModel.detailList = this.dataSource;
-                var files=this.$refs.upload.getNewFileList();
-                var fileDeleteList = [];
-                if(this.$refs.upload.getDeleteFileList().length>0){
-                    this.$refs.upload.getDeleteFileList().forEach(item => {
-                        fileDeleteList.push(item.id);
-                    });
-                }
-                this.formModel.fileDeleteList = fileDeleteList;
-                this.validateDetails(this.formModel.detailList);
+                // var $this = this;
+                // var cstList= this.dicCache.CstList.list;
+                // this.formModel.cstName = cstList.filter(item => item.id === this.formModel.cstId)[0].cstFullName;
+                this.formModel.details = this.dataSource;
+                // var files=this.$refs.upload.getNewFileList();
+                // var fileDeleteList = [];
+                // if(this.$refs.upload.getDeleteFileList().length>0){
+                //     this.$refs.upload.getDeleteFileList().forEach(item => {
+                //         fileDeleteList.push(item.id);
+                //     });
+                // }
+                // this.formModel.fileDeleteList = fileDeleteList;
+                let $this = this;
+                this.validateDetails(this.formModel.details);
                 if(this.formModel.editFlag==operTypeEnum.OPER_ADD){//新增操作
-                    httpUtil.postWithFile("whsin/addInInfo", this.formModel,files, data => {
+                    httpUtil.post("wmsin/createWmsInfo", this.formModel, data => {
                         this.$message({
                             message: '新增入库单成功',
                             type: 'success'
                         });
-                        $this.$refs.upload.clearAllFile();
+                        //$this.$refs.upload.clearAllFile();
                         $this.handleBackData(data);
-                        $this.$refs["btn_print"].setDisabled(false);
-                        $this.updateTitle("编辑入库单[" + data.whsinCode + "]");
+                        //$this.$refs["btn_print"].setDisabled(false);
+                        $this.updateTitle("编辑入库单[" + data.whsInCode + "]");
                          //变为修改操作
                         $this.formModel.editFlag = operTypeEnum.OPER_EDIT;
                         $this.$options.parent.propsData.parentView.queryData();
                     });
                 }else{//修改操作
-                    this.formModel.delIdList = this.deleteIdList;
-                    this.formModel.delPackIdList = this.delPackNoList;
-                    httpUtil.postWithFile("whsin/updateInInfo",this.formModel,files, data => {
+                    //修改后的明细数据
+                    $this.formModel.aftDetails = $this.formModel.details;
+                    httpUtil.post("wmsin/updateWmsInfo",this.formModel, data => {
                         var titleHead = '修改';
                         if(this.formModel.editFlag==operTypeEnum.OPER_ADJUST){
                             titleHead = '调整';
@@ -492,85 +500,85 @@
                 }
             },
             uploadExcel:function(){
-                var $this = this;
-                var files=this.$refs.uploadExcel.getNewFileList();
-                httpUtil.postWithFile("whsin/uploadExcel", this.formModel,files, (data,flag) => {
-                    if(!$this.dataSource){
-                        $this.dataSource = []; 
-                    }
-                    if(flag){
-                        var resObj = JSON.parse(data.split('\\n').join('hh'));
-                        console.log(resObj.content);
-                        this.dialogTitle = resObj.title;
-                        this.dialogContent = resObj.content.split('hh');
-                        this.dialogVisible = true;
-                    }else{
-                        data.forEach(element => {
-                            $this.counter += 1;
-                            element.index = $this.counter;
-                        });
-                        $this.dataSource =  $this.dataSource.concat(data);
-                    }
-                });
+                // var $this = this;
+                // var files=this.$refs.uploadExcel.getNewFileList();
+                // httpUtil.postWithFile("whsin/uploadExcel", this.formModel,files, (data,flag) => {
+                //     if(!$this.dataSource){
+                //         $this.dataSource = []; 
+                //     }
+                //     if(flag){
+                //         var resObj = JSON.parse(data.split('\\n').join('hh'));
+                //         console.log(resObj.content);
+                //         this.dialogTitle = resObj.title;
+                //         this.dialogContent = resObj.content.split('hh');
+                //         this.dialogVisible = true;
+                //     }else{
+                //         data.forEach(element => {
+                //             $this.counter += 1;
+                //             element.index = $this.counter;
+                //         });
+                //         $this.dataSource =  $this.dataSource.concat(data);
+                //     }
+                // });
             },
             saveAndAuditInfo:function(){
-                this.$refs["inFrom"].validate(this);
-                var $this = this;
-                var cstList= this.dicCache.CstList.list;
-                this.formModel.cstName = cstList.filter(item => item.id === this.formModel.cstId)[0].cstFullName;
-                var files=this.$refs.uploadExcel.fileList;
-                this.formModel.detailList = this.dataSource;
-                this.formModel.delIdList = this.deleteIdList;
-                this.formModel.delPackIdList = this.delPackNoList;
-                var files=this.$refs.upload.getNewFileList();
-                var fileDeleteList = [];
-                this.validateDetails(this.formModel.detailList);
-                if(this.$refs.upload.getDeleteFileList().length>0){
-                    this.$refs.upload.getDeleteFileList().forEach(item => {
-                        fileDeleteList.push(item.id);
-                    });
-                }
-                this.formModel.fileDeleteList = fileDeleteList;
-                httpUtil.postWithFile("whsin/saveWithAuditInInfo", this.formModel,files, data => {
-                        this.$message({
-                            message: '保存并审核入库单成功',
-                            type: 'success'
-                        });
-                        //禁用按钮
-                        this.$refs["add"].setDisabled(true);
-                        this.$refs["save"].setDisabled(true);
-                        this.$refs["cost"].setDisabled(false);
-                        this.$refs["downExcel"].setDisabled(true);
-                        this.$refs["uploadExcel"].setDisabled(true);
-                        this.$refs["addDetail"].setDisabled(true);
-                        this.$refs["duplicate"].setDisabled(true);
-                        this.$refs["remove"].setDisabled(true);
-                        this.$refs["upload"].setDisabled(true);
-                        this.$refs["btn_print"].setDisabled(false);
-                        //回显数据
-                        $this.handleBackData(data);
-                        $this.formReadOnly = true;
-                        $this.config.allowEdit = false;
-                        this.$refs.upload.clearAllFile();
-                        $this.updateTitle("查看入库单[" + data.whsinCode + "]");
-                        //变为修改操作
-                        $this.formModel.editFlag = operTypeEnum.OPER_EDIT;
-                        //刷新管理界面数据
-                        $this.$options.parent.propsData.parentView.queryData();
-                });
+                // this.$refs["inFrom"].validate(this);
+                // var $this = this;
+                // var cstList= this.dicCache.CstList.list;
+                // this.formModel.cstName = cstList.filter(item => item.id === this.formModel.cstId)[0].cstFullName;
+                // var files=this.$refs.uploadExcel.fileList;
+                // this.formModel.details = this.dataSource;
+                // this.formModel.delIdList = this.deleteIdList;
+                // this.formModel.delPackIdList = this.delPackNoList;
+                // var files=this.$refs.upload.getNewFileList();
+                // var fileDeleteList = [];
+                // this.validateDetails(this.formModel.details);
+                // if(this.$refs.upload.getDeleteFileList().length>0){
+                //     this.$refs.upload.getDeleteFileList().forEach(item => {
+                //         fileDeleteList.push(item.id);
+                //     });
+                // }
+                // this.formModel.fileDeleteList = fileDeleteList;
+                // httpUtil.postWithFile("whsin/saveWithAuditInInfo", this.formModel,files, data => {
+                //         this.$message({
+                //             message: '保存并审核入库单成功',
+                //             type: 'success'
+                //         });
+                //         //禁用按钮
+                //         this.$refs["add"].setDisabled(true);
+                //         this.$refs["save"].setDisabled(true);
+                //         this.$refs["cost"].setDisabled(false);
+                //         this.$refs["downExcel"].setDisabled(true);
+                //         this.$refs["uploadExcel"].setDisabled(true);
+                //         this.$refs["addDetail"].setDisabled(true);
+                //         this.$refs["duplicate"].setDisabled(true);
+                //         this.$refs["remove"].setDisabled(true);
+                //         this.$refs["upload"].setDisabled(true);
+                //         this.$refs["btn_print"].setDisabled(false);
+                //         //回显数据
+                //         $this.handleBackData(data);
+                //         $this.formReadOnly = true;
+                //         $this.config.allowEdit = false;
+                //         this.$refs.upload.clearAllFile();
+                //         $this.updateTitle("查看入库单[" + data.whsInCode + "]");
+                //         //变为修改操作
+                //         $this.formModel.editFlag = operTypeEnum.OPER_EDIT;
+                //         //刷新管理界面数据
+                //         $this.$options.parent.propsData.parentView.queryData();
+                // });
             },
             handleBackData:function(data){
                 for(var p in data){
                     this.$set(this.formModel,p,data[p]);
                 }
-                this.$set(this.formModel,'fileList',data['fileList']);
+                //this.$set(this.formModel,'fileList',data['fileList']);
                 if(this.formModel.createTime){
                     this.formModel.creatorNameTime = this.formModel.creatorName + " ." + this.formModel.createTime;
                 }
                 if(this.formModel.auditorName){
                     this.formModel.auditorNameTime = this.formModel.auditorName + " ." + this.formModel.auditTime;
                 }
-                this.dataSource = this.formModel.detailList;
+                this.dataSource = this.formModel.details;
             },
         },
     }
