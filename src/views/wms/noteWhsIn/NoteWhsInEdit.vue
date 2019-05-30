@@ -30,12 +30,12 @@
             <!-- body内容区域 -->
             <metro_page_box_body>
                 <pm_table ref="pmTable" tableKey="NoteWhsInEdit-pmTable" :dataSource="dataSource" :config="config" :bottomHeight="170">
-                    <pm_column prop="packNo" label="捆包号" width="200"></pm_column>
-                    <pm_column prop="batchNo" label="批次号" width="200" required></pm_column>
-                    <pm_column prop="coilLength" label="卷长" width="200"  required></pm_column>
-                    <pm_column prop="netWeight" label="净重" width="200" required></pm_column>
-                    <pm_column prop="grossWeight" label="毛重" width="200"></pm_column>
-                    <pm_column prop="productTime" label="生产时间" width="200"></pm_column>
+                    <pm_column prop="packNo" label="捆包号" width="300"></pm_column>
+                    <pm_column prop="batchNo" label="批次号" width="250" required></pm_column>
+                    <pm_column prop="coilLength" label="卷长" width="250"  required></pm_column>
+                    <pm_column prop="netWeight" label="净重" width="250" required></pm_column>
+                    <pm_column prop="grossWeight" label="毛重" width="250"></pm_column>
+                    <pm_column prop="productTime" label="生产时间" width="300"></pm_column>
                 </pm_table>
                 <pm_tool_bar :noBackground="true">
                     <pm_toolButton ref='add' btnName ="保存" btnIcon ="el-icon-circle-plus-outline" :btnClickFunc ='saveInfo'></pm_toolButton>
