@@ -9,6 +9,7 @@ const parseEvironment = (hostname, domain) => {
 }
 
 var serviceUrl = 'http://localhost:8080/api/';
+// var serviceUrl = 'http://112.74.160.172:8080/api/';
 var hostname=window.location.hostname;
 if(typeof window != 'undefined'){    
     let environment = "";  

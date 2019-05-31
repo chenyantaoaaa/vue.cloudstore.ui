@@ -67,8 +67,21 @@ export default {
       }
     };
   },
-  computed:{
-    
+   watch:{
+      'formModel.portraitPower'(){
+        if(this.formModel.portraitPower == null  || this.formModel.transversePower == null){
+          this.$set(this.formModel,"ratio",0);
+        }else{
+          this.$set(this.formModel,"ratio",this.formModel.portraitPower/this.formModel.transversePower);
+        }
+      },
+      'formModel.transversePower'(){
+        if(this.formModel.portraitPower == null  || this.formModel.transversePower == null){
+          this.$set(this.formModel,"ratio",0);
+        }else{
+          this.$set(this.formModel,"ratio",this.formModel.portraitPower/this.formModel.transversePower);
+        }
+      }
   },
   created(){
     this.formModel = this.getFormModel();
