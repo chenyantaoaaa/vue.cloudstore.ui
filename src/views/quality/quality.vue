@@ -35,13 +35,13 @@
           <!-- <vue_column :prop="props.field" slot-scope="props" label="测试" allowEdit='true' width="200" placeholder="请输入捆包号"
           :callback="requestTransactionLogs" renderType="input"></vue_column>-->
           <pm_column prop="wmsInCode" label="入库单号" width="300"></pm_column>
-          <pm_column prop="portraitPower" label="纵向强力" width="200"></pm_column>
-          <pm_column prop="transversePower" label="横向强力" width="200"></pm_column>
+          <pm_column prop="portraitPower" label="纵向强力(N)" width="200"></pm_column>
+          <pm_column prop="transversePower" label="横向强力(N)" width="200"></pm_column>
           <pm_column prop="ratio" label="纵横比" width="200"></pm_column>
-          <pm_column prop="portraitDrafting" label="纵向牵伸" width="200"></pm_column>
-          <pm_column prop="transverseDrafting" label="横向牵伸" width="200"></pm_column>
-          <pm_column prop="singleSilkThin" label="单丝细度" width="200"></pm_column>
-          <pm_column prop="thickness" label="厚度" width="200"></pm_column>
+          <pm_column prop="portraitDrafting" label="纵向牵伸(%)" width="200"></pm_column>
+          <pm_column prop="transverseDrafting" label="横向牵伸(%)" width="200"></pm_column>
+          <pm_column prop="singleSilkThin" label="单丝细度(旦)" width="200"></pm_column>
+          <pm_column prop="thickness" label="厚度(mm)" width="200"></pm_column>
           <pm_column prop="even" label="均匀度" width="200"></pm_column>
           <pm_column prop="soft" label="柔软度" width="200"></pm_column>
           <pm_column prop="remark" label="备注"></pm_column>

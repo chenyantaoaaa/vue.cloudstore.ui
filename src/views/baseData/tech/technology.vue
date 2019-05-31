@@ -35,25 +35,25 @@
           <!-- <vue_column :prop="props.field" slot-scope="props" label="测试" allowEdit='true' width="200" placeholder="请输入捆包号"
           :callback="requestTransactionLogs" renderType="input"></vue_column>-->
           <pm_column prop="name" label="工艺名称" width="300"></pm_column>
-          <pm_column prop="upperWindTem" label="上风温度" width="200"></pm_column>
-          <pm_column prop="lowerWindTem" label="下风温度" width="200"></pm_column>
-          <pm_column prop="boxTem" label="箱体温度" width="200"></pm_column>
-          <pm_column prop="dissolvedTem" label="熔体温度" width="200"></pm_column>
-          <pm_column prop="hotrollingPressure" label="热轧机线压力" width="200"></pm_column>
-          <pm_column prop="hotrollingUpperTem" label="热轧上昆温度" width="200"></pm_column>
-          <pm_column prop="hotrollingLowerTem" label="热轧下昆温度" width="200"></pm_column>
-          <pm_column prop="s1UpperSpeed" label="s1上风转速" width="200"></pm_column>
-          <pm_column prop="s1LowerSpeed" label="s1下风转速" width="200"></pm_column>
-          <pm_column prop="s1ConvulsionSpeed" label="s1抽风转速" width="200"></pm_column>
-          <pm_column prop="s1SingleSpeed" label="s1单体转速" width="200"></pm_column>
-          <pm_column prop="s1MeterPump" label="s1计量泵" width="200"></pm_column>
-          <pm_column prop="s1MachineSpeed" label="s1车速" width="200"></pm_column>
-          <pm_column prop="s2UpperSpeed" label="s2上风转速" width="200"></pm_column>
-          <pm_column prop="s2LowerSpeed" label="s2下风转速" width="200"></pm_column>
-          <pm_column prop="s2ConvulsionSpeed" label="s2抽风转速" width="200"></pm_column>
-          <pm_column prop="s2SingleSpeed" label="s2单体转速" width="200"></pm_column>
-          <pm_column prop="s2MeterPunp" label="s2计量泵" width="200"></pm_column>
-          <pm_column prop="s2MachineSpeed" label="s2车速" width="200"></pm_column>
+          <pm_column prop="upperWindTem" label="上风温度(°C)" width="200"></pm_column>
+          <pm_column prop="lowerWindTem" label="下风温度(°C)" width="200"></pm_column>
+          <pm_column prop="boxTem" label="箱体温度(°C)" width="200"></pm_column>
+          <pm_column prop="dissolvedTem" label="熔体温度(°C)" width="200"></pm_column>
+          <pm_column prop="hotrollingPressure" label="热轧机线压力(N/mm)" width="200"></pm_column>
+          <pm_column prop="hotrollingUpperTem" label="热轧上昆温度(°C)" width="200"></pm_column>
+          <pm_column prop="hotrollingLowerTem" label="热轧下昆温度(°C)" width="200"></pm_column>
+          <pm_column prop="s1UpperSpeed" label="s1上风转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s1LowerSpeed" label="s1下风转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s1ConvulsionSpeed" label="s1抽风转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s1SingleSpeed" label="s1单体转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s1MeterPump" label="s1计量泵(转/分)" width="200"></pm_column>
+          <pm_column prop="s1MachineSpeed" label="s1车速(m/min)" width="200"></pm_column>
+          <pm_column prop="s2UpperSpeed" label="s2上风转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s2LowerSpeed" label="s2下风转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s2ConvulsionSpeed" label="s2抽风转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s2SingleSpeed" label="s2单体转速(转/分)" width="200"></pm_column>
+          <pm_column prop="s2MeterPunp" label="s2计量泵(转/分)" width="200"></pm_column>
+          <pm_column prop="s2MachineSpeed" label="s2车速(m/min)" width="200"></pm_column>
           <pm_column prop="remark" label="备注"></pm_column>
         </pm_table>
         <pm_pagination ref="pager" :totalSize="totalSize" :queryData="getList"></pm_pagination>

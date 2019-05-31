@@ -2,27 +2,27 @@
 <el-container style="padding:5px;">
   <el-main style="padding:10px;">
     <pm_form_render :model="formModel" :rules="rules" ref="demoForm">
-        <pm_form_item row="1" labletext="工艺名称" name="name" :span="8" xtype="text" maxlength="20" lableWidth="80px" required></pm_form_item>
-        <pm_form_item row="1" labletext="上风温度" name="upperWindTem" :span="8" xtype="number" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="1" labletext="下风温度" name="lowerWindTem" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="2" labletext="箱体温度" name="boxTem" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="2" labletext="熔体温度" name="dissolvedTem" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="2" labletext="热轧机线压力" name="hotrollingPressure" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="3" labletext="热轧上昆温度" name="hotrollingUpperTem" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="3" labletext="热轧下昆温度" name="hotrollingLowerTem" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="4" labletext="s1上风转速" name="s1UpperSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="4" labletext="s1下风转速" name="s1LowerSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="4" labletext="s1抽风转速" name="s1ConvulsionSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="5" labletext="s1单体转速" name="s1SingleSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="5" labletext="s1计量泵" name="s1MeterPump" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="5" labletext="s1车速" name="s1MachineSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="6" labletext="s2上风转速" name="s2UpperSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="6" labletext="s2下风转速" name="s2LowerSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="6" labletext="s2抽风转速" name="s2ConvulsionSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="7" labletext="s2单体转速" name="s2SingleSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="7" labletext="s2计量泵" name="s2MeterPunp" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="7" labletext="s2车速" name="s2MachineSpeed" :span="8" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-        <pm_form_item row="8" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="80px"  maxlength="100" ></pm_form_item>
+        <pm_form_item row="1" labletext="工艺名称" name="name" :span="8" xtype="text" maxlength="20" lableWidth="120px" required></pm_form_item>
+        <pm_form_item row="1" labletext="上风温度(°C)" name="upperWindTem" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="1" labletext="下风温度(°C)" name="lowerWindTem" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="2" labletext="箱体温度(°C)" name="boxTem" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="2" labletext="熔体温度(°C)" name="dissolvedTem" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="2" labletext="热轧机线压力(N/mm)" name="hotrollingPressure" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="3" labletext="热轧上昆温度(°C)" name="hotrollingUpperTem" :span="12" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="3" labletext="热轧下昆温度(°C)" name="hotrollingLowerTem" :span="12" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="4" labletext="s1上风转速(转/分)" name="s1UpperSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="4" labletext="s1下风转速(转/分)" name="s1LowerSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="4" labletext="s1抽风转速(转/分)" name="s1ConvulsionSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="5" labletext="s1单体转速(转/分)" name="s1SingleSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="5" labletext="s1计量泵(转/分)" name="s1MeterPump" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="5" labletext="s1车速(m/min)" name="s1MachineSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="6" labletext="s2上风转速(转/分)" name="s2UpperSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="6" labletext="s2下风转速(转/分)" name="s2LowerSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="6" labletext="s2抽风转速(转/分)" name="s2ConvulsionSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="7" labletext="s2单体转速(转/分)" name="s2SingleSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="7" labletext="s2计量泵(转/分)" name="s2MeterPunp" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="7" labletext="s2车速(m/min)" name="s2MachineSpeed" :span="8" xtype="number" maxlength="20" lableWidth="120px" ></pm_form_item>
+        <pm_form_item row="8" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="120px"  maxlength="100" ></pm_form_item>
     </pm_form_render>
   </el-main>
   <el-footer style="padding:0px;">

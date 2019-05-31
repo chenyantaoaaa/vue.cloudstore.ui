@@ -2,16 +2,16 @@
 <el-container style="padding:5px;">
   <el-main style="padding:10px;">
     <pm_form_render :model="formModel" :rules="rules" ref="qualityForm">
-      <pm_form_item row="1" labletext="入库单号" name="wmsInCode" :span="12" xtype="text" maxlength="20" lableWidth="80px" required></pm_form_item>
-      <pm_form_item row="1" labletext="纵向强力" name="portraitPower" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="2" labletext="横向强力" name="transversePower" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="2" labletext="纵横比" name="ratio" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="3" labletext="纵向牵伸" name="portraitDrafting" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="3" labletext="横向牵伸" name="transverseDrafting" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="4" labletext="单丝细度" name="singleSilkThin" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="4" labletext="厚度" name="thickness" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="5" labletext="均匀度" name="even" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
-      <pm_form_item row="5" labletext="柔软度" name="soft" :span="12" xtype="text" maxlength="20" lableWidth="80px" ></pm_form_item>
+      <pm_form_item row="1" labletext="入库单号" name="wmsInCode" :span="12" xtype="text" maxlength="20" lableWidth="100px" required></pm_form_item>
+      <pm_form_item row="2" labletext="纵向强力(N)" name="portraitPower" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="2" labletext="横向强力(N)" name="transversePower" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="1" labletext="纵横比" name="ratio" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="3" labletext="纵向牵伸(%)" name="portraitDrafting" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="3" labletext="横向牵伸(%)" name="transverseDrafting" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="4" labletext="单丝细度(旦)" name="singleSilkThin" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="4" labletext="厚度(mm)" name="thickness" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="5" labletext="均匀度" name="even" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
+      <pm_form_item row="5" labletext="柔软度" name="soft" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
       <pm_form_item row="6" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="80px"  maxlength="100" ></pm_form_item>
     </pm_form_render>
   </el-main>
