@@ -30,7 +30,7 @@
 	flex: 1;
 	max-width: 1508px;
 	margin: 0 auto;
-	background:url(/static/imgs/BGindex.png) no-repeat;
+	background:url(/static/imgs/BGindex2.png) no-repeat;
     /* // top: 120px;
     // left: 230px;
     // right: 0;
