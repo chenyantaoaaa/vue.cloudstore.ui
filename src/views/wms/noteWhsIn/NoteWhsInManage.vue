@@ -31,11 +31,11 @@
             btnIcon="el-icon-circle-check-outline"
             :btnClickFunc="auditInfo"
           ></pm_toolButton> -->
-          <pm_toolButton
+          <!-- <pm_toolButton
             btnName="打印"
             btnIcon="el-icon-printer"
             :btnClickFunc="printInfo"
-          ></pm_toolButton>
+          ></pm_toolButton> -->
           <!-- <pm_toolButton
             btnName="结算"
             btnIcon="el-icon-sold-out"
