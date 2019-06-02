@@ -12,7 +12,8 @@
                     <pm_form_item row="2" labletext="班次" name="classes" :span="6" xtype="text" lableWidth="90px"></pm_form_item>
                     <pm_form_item row="2" labletext="制单人" name="creatorNameTime" :span="6" xtype="text" lableWidth="70px" :readOnly='true'></pm_form_item>
                     <pm_form_item row="2" labletext="品名" name="brand" :span="6" xtype="text" lableWidth="70px" :rowHeight='2' required></pm_form_item>
-                    <pm_form_item row="3" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="70px" :rowHeight='2'></pm_form_item>
+                    <pm_form_item row="3" labletext="颜色" name="color" :span="6" xtype="text" lableWidth="70px" :rowHeight='2'></pm_form_item>
+                    <pm_form_item row="4" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="70px" :rowHeight='2'></pm_form_item>
                 </pm_form_render>
                 <!-- <pm_upload ref="upload" btnIcon='el-icon-upload2' :fileList.sync='formModel.fileList'></pm_upload> -->
                 <pm_tool_bar>
@@ -47,7 +48,9 @@
                 </pm_tool_bar>
             </metro_page_box_body>
         </metro_page_box>
-        <noteWhsInPrint ref="print" v-show="false"></noteWhsInPrint>
+        <div v-show="false">
+            <barCodePrint ref="print" v-show="true"></barCodePrint>
+        </div>
 
         <el-dialog
             :title.sync='dialogTitle'
@@ -84,6 +87,7 @@
     import costBalanceAddManage from "@/views/cost/costBalanceAdd/CostBalanceAddManage";
     import printJS from 'print-js'
     import noteWhsInPrint from "./NoteWhsInPrint";
+    import barCodePrint from "./BarCodePrint";
     const statusEnum = {
         STATUS_READY:1, //待入库
         STATUS_SUCC:2,//入库完成
@@ -96,7 +100,7 @@
     };
     export default {
         components: {metro_page, metro_page_box, metro_page_box_tool_bar,
-            metro_page_box_body, metro_pageheader,pm_search,pm_form_item,pm_toolButton, pm_tool_bar,pm_table, pm_column,pm_pagination,pm_upload,noteWhsInPrint},
+            metro_page_box_body, metro_pageheader,pm_search,pm_form_item,pm_toolButton, pm_tool_bar,pm_table, pm_column,pm_pagination,pm_upload,noteWhsInPrint,barCodePrint},
         data: function() {
             var validBillAttachment=(rule, value,callback)=>{
                 var reg = /^[a-zA-Z0-9\,]+$/
@@ -214,7 +218,7 @@
                    this.$refs["cost"].setDisabled(true);
                }
            }else{
-               this.$refs["btn_print"].setDisabled(true);
+               //this.$refs["btn_print"].setDisabled(true);
                this.$refs["cost"].setDisabled(true);
            }
            if(!hasSaveAuth){
@@ -224,7 +228,7 @@
                this.$refs["save"].setDisabled(true);
            }
            if(!hasPrintAuth){
-                this.$refs["btn_print"].setDisabled(true);
+                //this.$refs["btn_print"].setDisabled(true);
            }
         },
         methods: {
@@ -269,12 +273,15 @@
             },
             printInfo:function(){
                 let _this = this;
-                this.$commonUtil.getDetailEntity("wmsin/getInDetailByMainId",
-                    {mainId: this.formModel.id},
-                     this.formModel,
-                    function(entity){
-                        _this.$refs.print.printDiv(entity);
-                });
+                let mainInfo = this.$commonUtil.deepClone(this.formModel);
+                mainInfo.detailInfo = this.$commonUtil.deepClone(this.getSelectRow());
+                _this.$refs.print.printDiv(mainInfo);
+                // this.$commonUtil.getDetailEntity("wmsin/getInDetailByMainId",
+                //     {mainId: this.formModel.id},
+                //      this.formModel,
+                //     function(entity){
+                //         _this.$refs.print.printDiv(entity);
+                // });
             },
             getFormModel:function(){
                  //获取数据源
@@ -579,6 +586,13 @@
                     this.formModel.auditorNameTime = this.formModel.auditorName + " ." + this.formModel.auditTime;
                 }
                 this.dataSource = this.formModel.details;
+            },
+            getSelectRow() {
+                let selectRow = this.$refs.pmTable.currentRow;
+                if (!selectRow) {
+                    this.$commonUtil.valid.throwEx(this, "请先选择一条信息");
+                }
+                return selectRow;
             },
         },
     }

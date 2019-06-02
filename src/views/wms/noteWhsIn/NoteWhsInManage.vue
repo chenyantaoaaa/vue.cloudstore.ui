@@ -26,17 +26,17 @@
             btnIcon="el-icon-delete"
             :btnClickFunc="deleteInfo"
           ></pm_toolButton>
-          <!-- <pm_toolButton
+           <!-- <pm_toolButton
             btnName="审核"
             btnIcon="el-icon-circle-check-outline"
             :btnClickFunc="auditInfo"
-          ></pm_toolButton>
+          ></pm_toolButton> -->
           <pm_toolButton
             btnName="打印"
             btnIcon="el-icon-printer"
             :btnClickFunc="printInfo"
           ></pm_toolButton>
-          <pm_toolButton
+          <!-- <pm_toolButton
             btnName="结算"
             btnIcon="el-icon-sold-out"
             :btnClickFunc="settleInfo"
@@ -78,6 +78,7 @@
           <pm_column prop="classes" label="班次" width="120"></pm_column>
           <pm_column prop="clothWidth" label="幅宽" width="120"></pm_column>
           <pm_column prop="num" label="个数" width="120"></pm_column>
+          <pm_column prop="color" label="颜色" width="120"></pm_column>
           <pm_column prop="createTime" label="创建时间" width="160"></pm_column>
           <pm_column prop="creator" label="创建人" width="160"></pm_column>
           <pm_column prop="modifier" label="修改人" width="160"></pm_column>
@@ -86,7 +87,9 @@
         <pm_pagination ref="pager" :totalSize="totalSize" :queryData="getList"></pm_pagination>
       </metro_page_box_body>
     </metro_page_box>
-    <noteWhsInPrint ref="print" v-show="false"></noteWhsInPrint>
+    <div v-show="false">
+      <barCodePrint ref="print" v-show="true"></barCodePrint>
+    </div>
   </metro_page>
 </template>
 
@@ -113,6 +116,7 @@ import costBalanceAddManage from "@/views/cost/costBalanceAdd/CostBalanceAddMana
 import printJS from "print-js";
 import pm_context_menu from "@/components/common/menu/pm_context_menu";
 import noteWhsInPrint from "./NoteWhsInPrint";
+import barCodePrint from "./BarCodePrint";
 export default {
   mixins: [tableReload],
   components: {
@@ -129,7 +133,8 @@ export default {
     pm_column,
     pm_pagination,
     pm_context_menu,
-    noteWhsInPrint
+    noteWhsInPrint,
+    barCodePrint
   },
   data: function() {
     return {
@@ -206,14 +211,15 @@ export default {
     printInfo: function() {
       let _this = this;
       let row = this.getSelectRow();
-      this.$commonUtil.getDetailEntity(
-        "wmsin/getInDetailByMainId",
-        { mainId: row.id },
-        row,
-        function(entity) {
-          _this.$refs.print.printDiv(entity);
-        }
-      );
+      _this.$refs.print.printDiv(row);
+      // this.$commonUtil.getDetailEntity(
+      //   "wmsin/getInDetailByMainId",
+      //   { mainId: row.id },
+      //   row,
+      //   function(entity) {
+      //     _this.$refs.print.printDiv(entity);
+      //   }
+      // );
     },
     queryData: function() {
       var $this = this;
