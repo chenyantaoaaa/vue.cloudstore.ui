@@ -20,6 +20,7 @@ let dicEnum = {
     BalanceStatus: "BalanceStatus", //结算状态
     BalanceType: "BalanceType", //结算方式
     BrandNameList: "BrandNameList", //品名
+    TechId: "techId", //工艺
     BrandSkuProperties: "BrandSkuProperties", //品名sku属性
     BusinessType: "BusinessType", //业务类型
     CalcType: "CalcType", //计重方式
@@ -32,6 +33,7 @@ let dicEnum = {
     CstValid: "CstValid", //货主启用状态
     DicBrandClass: "DicBrandClass", //品类
     DicBrandName: "DicBrandName", //品名
+    TechId: "techId", //工艺
     DicClientName: "DicClientName", //货主
     DicDepartment: "DicDepartment", //部门
     DepartmentList:"DepartmentList",//部门列表
@@ -218,6 +220,16 @@ let castDic = {
                 classId:"分类名",
                 mnemonicCode: "助记码",
                 name:"品名"
+            },
+        }
+    }),
+    techId:new castConfig(dicEnum.TechId,dicEnum.TechId,(editKey,config)=>{
+        return {
+            key: "id",
+            value: "name",
+            desc: "remark",
+            cols: {
+                name:"工艺名"
             },
         }
     }),

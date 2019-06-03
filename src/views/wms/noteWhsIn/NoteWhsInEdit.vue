@@ -17,8 +17,6 @@
                 </pm_form_render>
                 <!-- <pm_upload ref="upload" btnIcon='el-icon-upload2' :fileList.sync='formModel.fileList'></pm_upload> -->
                 <pm_tool_bar>
-                    <pm_toolButton  ref="downExcel" btnName ="下载导入模板" btnIcon ="el-icon-download" :btnClickFunc ='downImportModel'></pm_toolButton>
-                    <pm_upload ref="uploadExcel" btnIcon='el-icon-upload2' labelName='导入' :IsShow='false' :isSingle='true' :request='uploadExcel'></pm_upload>
                     <pm_toolButton ref="addDetail" btnName ="添加明细" btnIcon ="el-icon-circle-plus-outline" :btnClickFunc ='addDetail'></pm_toolButton>
                     <pm_toolButton ref="duplicate" btnName ="复制" btnIcon ="el-icon-news" :btnClickFunc ='copyRows'></pm_toolButton>
                     <pm_toolButton ref="remove" btnName ="移除" btnIcon ="el-icon-remove-outline" :btnClickFunc ='deleteRows'></pm_toolButton>
@@ -41,9 +39,7 @@
                 </pm_table>
                 <pm_tool_bar :noBackground="true">
                     <pm_toolButton ref='add' btnName ="保存" btnIcon ="el-icon-circle-plus-outline" :btnClickFunc ='saveInfo'></pm_toolButton>
-                    <pm_toolButton ref='save' btnName ="保存并审核" btnIcon ="el-icon-circle-plus-outline" :btnClickFunc ='saveAndAuditInfo'></pm_toolButton>
                     <pm_toolButton ref='btn_print' btnName ="打印" btnIcon ="el-icon-printer" :btnClickFunc ='printInfo'></pm_toolButton>
-                    <pm_toolButton ref='cost' btnName ="结算" btnIcon ="el-icon-tickets" :btnClickFunc ='settleInfo'></pm_toolButton>
                     <pm_toolButton btnName ="关闭" btnIcon ="el-icon-error" :btnClickFunc ='closeWin'></pm_toolButton>
                 </pm_tool_bar>
             </metro_page_box_body>
@@ -198,9 +194,6 @@
             this.formModel = this.getFormModel();
         },
         mounted(){
-           var hasSaveAuth = this.$commonUtil.permission.hasSaveAuth(this);
-           var hasCheckAuth = this.$commonUtil.permission.hasCheckAuth(this);
-           var hasPrintAuth = this.$commonUtil.permission.hasPrintAuth(this);
            if(this.formModel.editFlag == operTypeEnum.OPER_ADJUST){
                this.adjustBtnInit();
            }else if(this.formModel.editFlag == operTypeEnum.OPER_EDIT){
@@ -220,15 +213,6 @@
            }else{
                //this.$refs["btn_print"].setDisabled(true);
                this.$refs["cost"].setDisabled(true);
-           }
-           if(!hasSaveAuth){
-               this.$refs["add"].setDisabled(true);
-           }
-           if(!hasCheckAuth){
-               this.$refs["save"].setDisabled(true);
-           }
-           if(!hasPrintAuth){
-                //this.$refs["btn_print"].setDisabled(true);
            }
         },
         methods: {

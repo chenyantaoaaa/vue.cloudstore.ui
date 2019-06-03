@@ -96,10 +96,11 @@ function wrapDicData(dic, data) {
             return {
                 category: a.className,
                 model: a,
-                name: a.itemName,
+                name: a.name,
                 value: a.itemValue,
                 valid: !a.deleteFlag,
-                other: a.remark
+                remark: a.remark,
+                id:a.id
             };
         });
         dicObj[key] = {

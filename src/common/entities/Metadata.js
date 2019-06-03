@@ -15,6 +15,7 @@ import regular from './CostRegularStatus'
 import baseBrand from './BaseBrand'
 import role from './Role'
 import physicalWeight from './physicalWeight'
+import quality from './quality'
 /**
  * 导出元数据
  */
@@ -52,5 +53,7 @@ export default {
     //角色
     role,
     //理重
-    physicalWeight
+    physicalWeight,
+    //质检
+    quality
 };

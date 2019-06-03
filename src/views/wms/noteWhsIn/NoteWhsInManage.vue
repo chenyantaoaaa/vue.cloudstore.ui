@@ -21,6 +21,12 @@
             btnIcon="el-icon-circle-plus-outline"
             :btnClickFunc="addTab"
           ></pm_toolButton>
+           <pm_toolButton
+              ref="viewQuality"
+              btnName="维护质检信息"
+              btnIcon="el-icon-circle-plus-outline"
+              :btnClickFunc="viewQuality"
+            ></pm_toolButton>
           <pm_toolButton
             btnName="作废"
             btnIcon="el-icon-delete"
@@ -208,6 +214,42 @@ export default {
     // this.$refs.pmContextMenu.addRef(el,vnode);
   },
   methods: {
+     viewQuality: function() {
+        let row = this.getSelectRow();
+        var $this = this;
+        var param = {};
+        param.wmsInCode = row.whsInCode;
+        param.page = {};
+        param.page.current = 1;
+        param.page.size = 10000;
+        var table = this;
+        httpUtil.post("quality/getQualitiesByPage", param, data => {
+          if(data.records == null || data.records.length == 0){
+              this.$layer.iframe({
+              content: {
+                content: qualityEdit, //传递的组件对象
+                parent: this, //当前的vue对象
+                data: { entity: JSON.stringify({wmsInCode:row.whsInCode}) } //props
+              },
+              area: ["600px", "360px"],
+              shadeClose: false,
+              title: "添加质检信息"
+            });
+          }else{
+              $this.$layer.iframe({
+              content: {
+                content: qualityEdit, //传递的组件对象
+                parent: $this, //当前的vue对象
+                data: { key: data.records[0].id, entity: JSON.stringify(data.records[0]) } //props
+              },
+              area: ["600px", "360px"],
+              shadeClose: false,
+              title: "编辑质检信息[" + data.records[0].wmsInCode + "]"
+              });
+          }
+        });
+
+      },
     printInfo: function() {
       let _this = this;
       let row = this.getSelectRow();

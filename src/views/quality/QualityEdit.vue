@@ -1,7 +1,7 @@
 <template>
 <el-container style="padding:5px;">
   <el-main style="padding:10px;">
-    <pm_form_render :model="formModel" :rules="rules" ref="qualityForm">
+    <pm_form_render :model="formModel" :rules="rules" ref="qualityForm" :entity='entity'>
       <pm_form_item row="1" labletext="入库单号" name="wmsInCode" :span="12" xtype="text" maxlength="20" lableWidth="100px" required></pm_form_item>
       <pm_form_item row="2" labletext="纵向强力(N)" name="portraitPower" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
       <pm_form_item row="2" labletext="横向强力(N)" name="transversePower" :span="12" xtype="number" maxlength="20" lableWidth="100px" ></pm_form_item>
@@ -64,7 +64,8 @@ export default {
           name: [
               { required: true, message: "请输入材质名称", trigger: "blur" }
           ]
-      }
+      },
+      entity: metadata.quality
     };
   },
    watch:{
