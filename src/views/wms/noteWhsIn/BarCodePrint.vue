@@ -103,7 +103,7 @@ export default {
                 result.productTime = entity.detailInfo.productTime;
             }
             //this.$set(result,"barCodeUrl","http://pic37.nipic.com/20140113/8800276_184927469000_2.png");
-            result.barCodeUrl = "http://localhost:8080/api/wmsin/getBarCode?barCode=12556346346";
+            result.barCodeUrl = "http://112.74.160.172:8080/api/wmsin/getBarCode?barCode=12556346346";
             return result;
             //字典缓存使用懒加载
             // if(!this.config.dicCache){

@@ -123,6 +123,7 @@ import printJS from "print-js";
 import pm_context_menu from "@/components/common/menu/pm_context_menu";
 import noteWhsInPrint from "./NoteWhsInPrint";
 import barCodePrint from "./BarCodePrint";
+import qualityEdit from "@/views/quality/QualityEdit"
 export default {
   mixins: [tableReload],
   components: {

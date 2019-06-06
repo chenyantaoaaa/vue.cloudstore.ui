@@ -59,7 +59,9 @@ export default {
             type: baseType.decimal,
             summary:true,
         },
-
+        createTime:{
+            type: baseType.datetime
+        },
         productTime:{
             type: baseType.datetime,
         },
