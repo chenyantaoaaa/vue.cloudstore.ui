@@ -12,7 +12,8 @@
                     <pm_form_item row="2" labletext="班次" name="classes" :span="6" xtype="text" lableWidth="90px"></pm_form_item>
                     <pm_form_item row="2" labletext="制单人" name="creatorNameTime" :span="6" xtype="text" lableWidth="70px" :readOnly='true'></pm_form_item>
                     <pm_form_item row="2" labletext="品名" name="brand" :span="6" xtype="text" lableWidth="70px" :rowHeight='2' required></pm_form_item>
-                    <pm_form_item row="3" labletext="颜色" name="color" :span="6" xtype="text" lableWidth="70px" :rowHeight='2'></pm_form_item>
+                    <pm_form_item row="3" labletext="颜色" name="color" :span="6" xtype="text" lableWidth="70px"></pm_form_item>
+                    <pm_form_item row="3" labletext="工艺" name="techId" :span="6" xtype="search_select_input" lableWidth="70px"></pm_form_item>
                     <pm_form_item row="4" labletext="备注" name="remark" :span="24" xtype="textarea" lableWidth="70px" :rowHeight='2'></pm_form_item>
                 </pm_form_render>
                 <!-- <pm_upload ref="upload" btnIcon='el-icon-upload2' :fileList.sync='formModel.fileList'></pm_upload> -->
