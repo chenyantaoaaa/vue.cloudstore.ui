@@ -9,7 +9,7 @@
             <div id="printDiv">
                 <table border="1px" width="400px" height="400px" align="center" cellspacing="0" cellpadding="0" >
                     <tr>
-                        <th colspan="4" align="center">JTKL 产品标签</th>
+                        <th colspan="4" align="center">武汉永强化纤有限公司产品标签</th>
                     </tr>
                     <tr align="center">
                         <td width="50px">品名</td>
@@ -26,7 +26,7 @@
                         <td >{{mainInfo.level}}</td>
                     </tr>
                     <tr  align="center">
-                        <td>合同编号</td>
+                        <td>入库单号</td>
                         <td >{{mainInfo.whsInCode}}</td>
                         <td >颜色</td>
                         <td >{{mainInfo.color}}</td>
@@ -62,6 +62,7 @@
 import cacheUtil from "@/common/utils/CacheUtil";
 import componentUtil from "@/common/utils/ComponentUtil";
 import metadata from "@/common/entities/Metadata";
+import util from '@/common/js/util.js';
 export default {
     props: {
     },
@@ -100,10 +101,11 @@ export default {
                 result.grossWeight = entity.detailInfo.grossWeight;
                 result.batchNo = entity.detailInfo.batchNo;
                 result.packNo = entity.detailInfo.packNo;
-                result.productTime = entity.detailInfo.productTime;
+                result.productTime = util.formatDate.format(new Date(entity.detailInfo.productTime),"yyyy-MM-dd hh:mm:ss");
             }
             //this.$set(result,"barCodeUrl","http://pic37.nipic.com/20140113/8800276_184927469000_2.png");
-            result.barCodeUrl = "http://112.74.160.172:8080/api/wmsin/getBarCode?barCode=12556346346";
+            // result.barCodeUrl = "http://112.74.160.172:8080/api/wmsin/getBarCode?barCode="+entity.detailInfo.barCode;
+            result.barCodeUrl = "http://127.0.0.1:8080/api/wmsin/getBarCode?barCode="+entity.detailInfo.barCode;
             return result;
             //字典缓存使用懒加载
             // if(!this.config.dicCache){
