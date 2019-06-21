@@ -78,6 +78,7 @@
           :config="config"
         >
           <pm_column prop="whsInCode" label="入库单号" width="200"></pm_column>
+          <pm_column prop="techId" label="工艺" width="150"></pm_column>
           <pm_column prop="clientName" label="客户名称" width="180"></pm_column>
           <pm_column prop="brand" label="品名" width="160"></pm_column>
           <pm_column prop="gramWeight" label="克重" width="120"></pm_column>
