@@ -5,6 +5,14 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
+  #printDiv table{
+    border:2px solid black;
+    border-collapse: collapse
+  }
+  #printDiv table td{
+    border:2px solid black;
+  }
+
 /* 清除内外边距 */
 body,
 h1,

@@ -3,11 +3,11 @@
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>入库单</title>
-            <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+            <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">  
         </head>
         <body>
             <div id="printDiv">
-                <table border="1px" width="400px" height="400px" align="center" cellspacing="0" cellpadding="0" >
+                <table  border="1px" width="400px" height="400px" align="center" cellspacing="0" cellpadding="0" >
                     <tr>
                         <th colspan="4" align="center">武汉永强化纤有限公司产品标签</th>
                     </tr>
