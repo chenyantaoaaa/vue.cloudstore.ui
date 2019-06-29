@@ -104,8 +104,8 @@ export default {
                 result.productTime = util.formatDate.format(new Date(entity.detailInfo.productTime),"yyyy-MM-dd hh:mm:ss");
             }
             //this.$set(result,"barCodeUrl","http://pic37.nipic.com/20140113/8800276_184927469000_2.png");
-            // result.barCodeUrl = "http://112.74.160.172:8080/api/wmsin/getBarCode?barCode="+entity.detailInfo.barCode;
-            result.barCodeUrl = "http://127.0.0.1:8080/api/wmsin/getBarCode?barCode="+entity.detailInfo.barCode;
+            result.barCodeUrl = "http://112.74.160.172:8080/api/wmsin/getBarCode?barCode="+entity.detailInfo.barCode;
+            //result.barCodeUrl = "http://127.0.0.1:8080/api/wmsin/getBarCode?barCode="+entity.detailInfo.barCode;
             return result;
             //字典缓存使用懒加载
             // if(!this.config.dicCache){

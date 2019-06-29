@@ -6,6 +6,8 @@
   box-sizing: border-box; }
 
   #printDiv table{
+    font-weight: bold;
+    font-size: 20px;
     border:2px solid black;
     border-collapse: collapse
   }
