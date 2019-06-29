@@ -101,7 +101,7 @@ export default {
                 result.grossWeight = entity.detailInfo.grossWeight;
                 result.batchNo = entity.detailInfo.batchNo;
                 result.packNo = entity.detailInfo.packNo;
-                result.productTime = util.formatDate.format(new Date(entity.detailInfo.productTime),"yyyy-MM-dd hh:mm:ss");
+                result.productTime = util.formatDate.format(new Date(entity.detailInfo.productTime),"yyyy-MM-dd");
             }
             //this.$set(result,"barCodeUrl","http://pic37.nipic.com/20140113/8800276_184927469000_2.png");
             result.barCodeUrl = "http://112.74.160.172:8080/api/wmsin/getBarCode?barCode="+entity.detailInfo.barCode;
